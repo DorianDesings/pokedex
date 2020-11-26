@@ -1,0 +1,37 @@
+.header {
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 3px solid var(--white);
+
+  &__title {
+    color: var(--white);
+    -webkit-text-stroke: 1px black;
+    letter-spacing: 3px;
+  }
+
+  // &__title {
+  //   position: relative;
+  //   display: flex;
+  //   align-items: center;
+  //   &::after {
+  //     content: '';
+  //     background-color: black;
+  //     display: block;
+  //     width: 100px;
+  //     height: 10px;
+  //     position: absolute;
+  //     left: -110px;
+  //     top: 50%;
+  //   }
+  //   &::before {
+  //     content: '';
+  //     background-color: black;
+  //     display: block;
+  //     width: 100px;
+  //     height: 10px;
+  //     position: absolute;
+  //     right: -110px;
+  //     top: 50%;
+  //   }
+  // }
+}

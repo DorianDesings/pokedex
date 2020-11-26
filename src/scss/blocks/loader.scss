@@ -1,0 +1,101 @@
+.loader {
+  &__pokeball-container {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    animation: tremor 0.2s infinite;
+  }
+  &__pokeball {
+    background-image: linear-gradient(var(--red) 50%, var(--white) 50%);
+    border-radius: 50%;
+    border: 4px solid black;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: rotate infinite 1.5s linear;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 7px;
+      background-color: black;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: 50px;
+      border-radius: 50%;
+      height: 50px;
+      background-color: var(--white);
+      border: 7px solid black;
+      z-index: 100;
+    }
+
+    @keyframes rotate {
+      to {
+        transform: rotate(1turn);
+      }
+    }
+  }
+
+  &__text {
+    position: absolute;
+    top: 350px;
+    left: 200px;
+    transform: translateX(-40%);
+    font-size: 2rem;
+    letter-spacing: 5px;
+    color: var(--yellow);
+    -webkit-text-stroke: 2px var(--blue);
+    animation: scale infinite alternate 1s linear;
+
+    &::after {
+      content: '';
+      background-color: var(--red);
+      position: absolute;
+      width: 40px;
+      height: 10px;
+      top: 30px;
+      transform: translateX(-35px);
+      animation: move steps(1) infinite 2s;
+
+      @keyframes move {
+        0% {
+          transform: translateX(0);
+        }
+        33% {
+          transform: translateX(-25px);
+        }
+
+        66% {
+          transform: translateX(-15px);
+        }
+      }
+    }
+
+    @keyframes scale {
+      to {
+        transform: translateX(-40%) scale(1.1);
+      }
+    }
+  }
+
+  @keyframes tremor {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.95);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+}
