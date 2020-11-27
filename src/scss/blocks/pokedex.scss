@@ -10,6 +10,10 @@
   height: 100vh;
   overflow: scroll;
 
+  @media screen and (min-width: 1400px) {
+    grid-template-columns: repeat(3, 200px);
+  }
+
   &__card {
     width: 200px;
     height: 300px;

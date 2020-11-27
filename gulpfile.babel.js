@@ -1,6 +1,3 @@
-//HTML
-import htmlmin from 'gulp-htmlmin';
-
 //CSS
 import postcss from 'gulp-postcss';
 import cssnano from 'cssnano';
