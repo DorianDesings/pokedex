@@ -4,7 +4,6 @@
   height: 100vh;
   position: relative;
 
-<<<<<<< HEAD
   &__image-container {
     display: flex;
     justify-content: center;
@@ -18,14 +17,6 @@
     max-width: 200px;
     width: 100%;
     display: block;
-=======
-  &__image {
-    width: 50%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 1rem;
->>>>>>> e3a172bf185f19eb1ca8d76643cabedf74643699
     filter: brightness(0);
 
     &--show {

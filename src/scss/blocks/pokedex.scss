@@ -3,18 +3,12 @@
   width: 50%;
   display: grid;
   grid-template-columns: repeat(2, 200px);
-<<<<<<< HEAD
   grid-template-rows: repeat(2, 200px);
   justify-content: center;
-=======
-  grid-template-rows: repeat(2, 325px);
->>>>>>> e3a172bf185f19eb1ca8d76643cabedf74643699
   padding: 20px;
   gap: 50px;
   height: 100vh;
   overflow: scroll;
-<<<<<<< HEAD
-=======
 
   &__card {
     width: 200px;
@@ -71,5 +65,4 @@
       padding-bottom: 0.5rem;
     }
   }
->>>>>>> e3a172bf185f19eb1ca8d76643cabedf74643699
 }
