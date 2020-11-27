@@ -1,6 +1,12 @@
+// URL de petición para obtener todos los pokemon
 const URL_ALL_POKEMONS = 'https://pokeapi.co/api/v2/pokemon?limit=386';
+// Array para guardar el resultado de la petición
 let allPokemonInfo = [];
+// Estado actual de la pokedex
 let pokedex = [];
+// Array de todos los nombres de los pokemon que faltan por capturar
+const allPokemonNames = [];
+// Respuesta correcta
 let correctAnswer = '';
 
 // DOM
@@ -26,8 +32,10 @@ const getAnswers = (answers = 5) => {
   const options = [];
   const currentPokemon = allPokemonInfo[getRandomNumber()];
   const isCatched = pokedex.find(({ name }) => name === currentPokemon);
+  console.log(isCatched);
   if (!isCatched.catched) {
     options.push(currentPokemon);
+    console.log(options);
     while (options.length < answers) {
       const newAnswerPokemon = allPokemonInfo[getRandomNumber()];
       if (!options.includes(newAnswerPokemon)) {
@@ -42,19 +50,6 @@ const getAnswers = (answers = 5) => {
   } else {
     getAnswers();
   }
-  options.push(currentPokemon);
-  while (options.length < answers) {
-    const newAnswerPokemon = allPokemonInfo[getRandomNumber()];
-    if (!options.includes(newAnswerPokemon)) {
-      options.push(newAnswerPokemon);
-    }
-  }
-
-  correctAnswer = options[0];
-
-  const allAnswers = options.sort(() => Math.random() - 0.5);
-
-  writeAnswers(allAnswers);
 };
 
 const writeAnswers = answers => {
@@ -70,6 +65,24 @@ const writeAnswers = answers => {
   pokeImage.classList.add('game__image');
   pokeImage.src = `/assets/images/gif/${correctAnswer}.gif`;
   answersList.append(fragment);
+};
+
+const fillPokedex = () => {
+  if (localStorage.getItem('pokedex')) {
+    pokedex = JSON.parse(localStorage.getItem('pokedex'));
+  } else {
+    pokedex = allPokemonInfo.map((pokemon, idx) => {
+      return {
+        id: idx + 1,
+        name: pokemon,
+        catched: false
+      };
+    });
+
+    localStorage.setItem('pokedex', JSON.stringify(pokedex));
+  }
+
+  createPokedex();
 };
 
 const createPokedex = () => {
@@ -99,36 +112,6 @@ const createPokedex = () => {
   pokedexElement.appendChild(fragment);
 };
 
-const fillPokedex = () => {
-  if (localStorage.getItem('pokedex')) {
-    pokedex = JSON.parse(localStorage.getItem('pokedex'));
-  } else {
-    pokedex = allPokemonInfo.map((pokemon, idx) => {
-      return {
-        id: idx + 1,
-        name: pokemon,
-        catched: false
-      };
-    });
-
-    localStorage.setItem('pokedex', JSON.stringify(pokedex));
-  }
-
-  createPokedex();
-};
-
-const catchPokemon = () => {
-  const caughtPokemon = pokedex.findIndex(
-    pokemon => pokemon.name === correctAnswer
-  );
-
-  getPokemonCard(pokedex[caughtPokemon].id - 1);
-
-  pokedex[caughtPokemon].catched = true;
-
-  localStorage.setItem('pokedex', JSON.stringify(pokedex));
-};
-
 const getPokemonCard = id => {
   const allPokemonsCards = [...document.querySelectorAll('.card-container')];
   const pokemonCard = allPokemonsCards[id];
@@ -155,6 +138,18 @@ const getPokemonCard = id => {
     });
 };
 
+const catchPokemon = () => {
+  const caughtPokemon = pokedex.findIndex(
+    pokemon => pokemon.name === correctAnswer
+  );
+
+  getPokemonCard(pokedex[caughtPokemon].id - 1);
+
+  pokedex[caughtPokemon].catched = true;
+
+  localStorage.setItem('pokedex', JSON.stringify(pokedex));
+};
+
 answersList.addEventListener('click', e => {
   if (e.target.tagName === 'LI') {
     if (e.target.textContent === correctAnswer) {
@@ -165,9 +160,5 @@ answersList.addEventListener('click', e => {
     }
   }
 });
-
-// pokedexElement.addEventListener('scroll', e => {
-//   console.log(e);
-// });
 
 getAllPokemons();
