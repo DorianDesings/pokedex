@@ -122,19 +122,24 @@ const createPokedex = () => {
 
 const getAnswers = (answers = 5) => {
   const options = [];
-  const currentPokemon = remainingPokemons[getRandomNumber()];
-  options.push(currentPokemon);
-  while (options.length < answers) {
-    const newAnswer = allPokemonInfo[getRandomNumber()];
-    if (!options.includes(newAnswer)) {
-      options.push(newAnswer);
+  const currentPokemon =
+    remainingPokemons[getRandomNumber(remainingPokemons.length)];
+  if (currentPokemon !== undefined) {
+    options.push(currentPokemon);
+    while (options.length < answers) {
+      const newAnswer = allPokemonInfo[getRandomNumber()];
+      if (!options.includes(newAnswer)) {
+        options.push(newAnswer);
+      }
     }
+    correctAnswer = options[0];
+
+    const allAnswers = options.sort(() => Math.random() - 0.5);
+
+    writeGame(allAnswers);
+  } else {
+    getAnswers();
   }
-  correctAnswer = options[0];
-
-  const allAnswers = options.sort(() => Math.random() - 0.5);
-
-  writeGame(allAnswers);
 };
 
 const writeGame = answers => {
@@ -153,6 +158,7 @@ const writeGame = answers => {
 };
 
 const catchPokemon = () => {
+  answersList.textContent = '';
   const caughtPokemon = pokedex.findIndex(
     pokemon => pokemon.name === correctAnswer
   );
@@ -169,13 +175,14 @@ const getPokemonCard = id => {
   const allPokemonsCards = [...document.querySelectorAll('.card-container')];
   const pokemonCard = allPokemonsCards[id];
   pokedexElement.scrollTo({
-    top: pokemonCard.offsetTop - 400,
-    behavior: 'smooth'
+    top: pokemonCard.offsetTop - 400
+    // behavior: 'smooth'
   });
 
   fetch(`https://pokeapi.co/api/v2/pokemon/${id + 1}/`)
     .then(res => res.json())
     .then(({ id, name, types }) => {
+      console.log(types);
       pokemonCard.addEventListener('transitionend', e => {
         setTimeout(() => {
           getAnswers();
