@@ -175,8 +175,8 @@ const getPokemonCard = id => {
   const allPokemonsCards = [...document.querySelectorAll('.card-container')];
   const pokemonCard = allPokemonsCards[id];
   pokedexElement.scrollTo({
-    top: pokemonCard.offsetTop - 400
-    // behavior: 'smooth'
+    top: pokemonCard.offsetTop - 400,
+    behavior: 'smooth'
   });
 
   fetch(`https://pokeapi.co/api/v2/pokemon/${id + 1}/`)
