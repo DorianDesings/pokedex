@@ -16,7 +16,9 @@
     display: block;
     max-width: 200px;
     width: 100%;
-    display: block;
+    position: relative;
+    z-index: 1;
+    -webkit-user-drag: none;
     filter: brightness(0);
 
     &--show {

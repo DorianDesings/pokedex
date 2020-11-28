@@ -6,6 +6,7 @@ body {
   background-color: var(--grey);
   font-family: 'pokemon-solid', sans-serif;
   overflow: hidden;
+  user-select: none;
 }
 
 main {
